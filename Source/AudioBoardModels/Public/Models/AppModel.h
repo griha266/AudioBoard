@@ -19,7 +19,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAvailableProjectsChangedDelegate,
  * Model of whole application, contains all project models
  * Should be initialized and loaded first before used
  */
-UCLASS(BlueprintType, NotBlueprintable, Transient)
+UCLASS(BlueprintType, Transient)
 class AUDIOBOARDMODELS_API UAppModel : public UObject
 {
 	GENERATED_BODY()
@@ -67,6 +67,9 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable, Category = "App events", meta = (ShortTooltip = "Delete existing project"))
 	void DeleteProject(UProjectModel* Project);
+	
+	UFUNCTION(BlueprintCallable, Category = "App events")
+	void ToggleListeningKeyBind();
 
 	// GETTERS
 	/**
@@ -75,7 +78,14 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Data|Getters")
     [[nodiscard]] const TArray<UProjectModel*>& GetAvailableProjects() const;
 	
+	UFUNCTION(BlueprintPure, Category = "Data|Getters")
+	[[nodiscard]] UProjectModel* GetCurrentLoadedProject() const;
+
+	UFUNCTION(BlueprintPure, Category = "Data|Getters")
 	[[nodiscard]] bool GetIsInitialized() const;
+	
+	UFUNCTION(BlueprintPure, Category = "Data|Getters")
+	[[nodiscard]] bool GetIsListeningKeyBind() const;
 
 	// EVENTS
 	/**
@@ -94,9 +104,13 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "App events")
 	FOnModelStateChangedDelegate OnModelStateChanged;
 	
+	UPROPERTY(BlueprintAssignable, Category = "App events")
+	FOnModelBoolFieldChangedDelegate OnListeningKeyBindChanged;
+	
 private:
 	// INIT fields
 	bool IsInitialized = false;
+	bool IsListeningKeyBind = false;
 	FAppStateLoader AppStateLoader = nullptr;;
 	FProjectModelFactory ProjectFactory = nullptr;
 	FFileOpenerFunction FileOpener = nullptr;

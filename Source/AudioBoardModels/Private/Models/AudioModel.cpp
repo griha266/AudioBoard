@@ -6,7 +6,7 @@
 #include "Utils/Initializable.h"
 
 
-void UAudioModel::Init(const FAudioModelInitData& InitialData)
+void UAudioModel::Init(const FAudioModelInitData& InitialData) noexcept
 {
 	if (IsInitialized)
 	{
@@ -23,7 +23,7 @@ void UAudioModel::Init(const FAudioModelInitData& InitialData)
 	IsInitialized = true;
 }
 
-void UAudioModel::Play() const
+void UAudioModel::Play() const noexcept
 {
 	if (!AudioBoardUtils::IsReady(this) || ModelState != EModelState::Loaded)
 	{
@@ -31,13 +31,17 @@ void UAudioModel::Play() const
 		return;
 	}
 
-	if (!Player->Play())
+	if (Player->GetIsLooped() && Player->GetIsPlaying())
+	{
+            Player->Stop();
+	}
+	else if (!Player->Play())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Failed to play audio!"));
 	}
 }
 
-void UAudioModel::Stop() const
+void UAudioModel::Stop() const noexcept
 {
 	if (!AudioBoardUtils::IsReady(this) || ModelState != EModelState::Loaded)
 	{
@@ -48,7 +52,7 @@ void UAudioModel::Stop() const
 }
 
 
-void UAudioModel::Load()
+void UAudioModel::Load() noexcept
 {
 	if (!AudioBoardUtils::IsReady(this))
 	{
@@ -84,7 +88,7 @@ void UAudioModel::Load()
 		});
 }
 
-void UAudioModel::Unload()
+void UAudioModel::Unload() noexcept
 {
 	if (!AudioBoardUtils::IsReady(this))
 	{
@@ -108,18 +112,18 @@ void UAudioModel::Unload()
 }
 
 // Reactive properties
-bool UAudioModel::GetIsInitialized() const
+bool UAudioModel::GetIsInitialized() const noexcept
 {
 	return IsInitialized;
 }
 
-const USoundPlayer* UAudioModel::GetPlayer() const
+const USoundPlayer* UAudioModel::GetPlayer() const noexcept
 {
 	return Player;
 }
 
 
-void UAudioModel::SetIsLooped(const bool NewValue) const
+void UAudioModel::SetIsLooped(const bool NewValue) const noexcept
 {
 	if (!AudioBoardUtils::IsReady(this))
 	{
@@ -130,7 +134,7 @@ void UAudioModel::SetIsLooped(const bool NewValue) const
 }
 
 
-void UAudioModel::SetKeyBind(const FKey& NewValue)
+void UAudioModel::SetKeyBind(const FKey& NewValue) noexcept
 {
 	if(AudioBoardUtils::IsReady(this))
 	{
@@ -143,18 +147,43 @@ void UAudioModel::SetKeyBind(const FKey& NewValue)
 	}
 }
 
-const FKey& UAudioModel::GetKey() const
+const FKey& UAudioModel::GetKey() const noexcept
 {
 	return KeyBind;
 }
 
-EModelState UAudioModel::GetModelState() const
+EModelState UAudioModel::GetModelState() const noexcept
 {
 	return ModelState;
 }
 
+bool UAudioModel::GetIsPlaying() const noexcept
+{
+	if (!IsValid(Player))
+	{
+		UE_LOG(LogTemp, Error, TEXT("Model is not initialized yet"));
+		return false;
+	}
+	return Player->GetIsPlaying();
+}
+
+bool UAudioModel::GetIsLooped() const noexcept
+{
+	if (!IsValid(Player))
+	{
+		UE_LOG(LogTemp, Error, TEXT("Model is not initialized yet"));
+		return false;
+	}
+	return Player->GetIsLooped();
+}
+
+const FString& UAudioModel::GetFilePath() const noexcept
+{
+	return FilePath;
+}
+
 // PRIVATE methods
-void UAudioModel::SetModelState(const EModelState NewValue)
+void UAudioModel::SetModelState(const EModelState NewValue) noexcept
 {
 	if (NewValue != ModelState)
 	{

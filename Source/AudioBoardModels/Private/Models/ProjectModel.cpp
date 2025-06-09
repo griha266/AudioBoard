@@ -105,6 +105,11 @@ const FString& UProjectModel::GetFilePath() const
 	return ProjectFilePath;
 }
 
+const EModelState& UProjectModel::GetModelState() const
+{
+	return ModelState;
+}
+
 bool UProjectModel::GetIsInitialized() const
 {
 	return IsInitialized;

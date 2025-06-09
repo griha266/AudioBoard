@@ -11,36 +11,48 @@
 
 
 
-// TODO define destructor
-// TODO how to make reactive property in Unreal?
-UCLASS(BlueprintType, NotBlueprintable, Transient)
+UCLASS(BlueprintType, Transient)
 class AUDIOBOARDMODELS_API UAudioModel : public UObject
 {
 	GENERATED_BODY()
 
 public:
-	void Init(const FAudioModelInitData& InitialData);
-	void Load();
-	void Unload();
-	void Play() const;
-	void Stop() const;
+	void Init(const FAudioModelInitData& InitialData) noexcept;
+	void Load() noexcept;
+	void Unload() noexcept;
 	
-	[[nodiscard]] bool GetIsInitialized() const;
+	[[nodiscard]] bool GetIsInitialized() const noexcept;
 
-	UFUNCTION(BlueprintCallable, Category = "Data|Setters")
-	void SetIsLooped(const bool NewValue) const;
+	UFUNCTION(BlueprintCallable, Category = "Audio events")
+	void Play() const noexcept;
+	
+	UFUNCTION(BlueprintCallable, Category = "Audio events")
+	void Stop() const noexcept;
 	
 	UFUNCTION(BlueprintCallable, Category = "Data|Setters")
-	void SetKeyBind(const FKey& NewValue);
+	void SetIsLooped(const bool NewValue) const noexcept;
+	
+	UFUNCTION(BlueprintCallable, Category = "Data|Setters")
+	void SetKeyBind(const FKey& NewValue) noexcept;
 	
 	UFUNCTION(BlueprintPure, Category = "Data|Getters")
-	[[nodiscard]] const USoundPlayer* GetPlayer() const;
+	[[nodiscard]] const USoundPlayer* GetPlayer() const noexcept;
 	
 	UFUNCTION(BlueprintPure, Category = "Data|Getters")
-	[[nodiscard]] const FKey& GetKey() const;
+	[[nodiscard]] const FKey& GetKey() const noexcept;
 	
 	UFUNCTION(BlueprintPure, Category = "Data|Getters")
-	[[nodiscard]] EModelState GetModelState() const;
+	[[nodiscard]] EModelState GetModelState() const noexcept;
+	
+	UFUNCTION(BlueprintPure, Category = "Data|Getters")
+	[[nodiscard]] bool GetIsPlaying() const noexcept;
+	
+	UFUNCTION(BlueprintPure, Category = "Data|Getters")
+	[[nodiscard]] bool GetIsLooped() const noexcept;
+
+	UFUNCTION(BlueprintPure, Category = "Data|Getters")
+	[[nodiscard]] const FString& GetFilePath() const noexcept;
+	
 	
 
 	UPROPERTY(BlueprintAssignable, Category = "Data|Events")
@@ -61,5 +73,5 @@ private:
 	UPROPERTY()
 	TObjectPtr<USoundPlayer> Player = nullptr;
 
-	void SetModelState(const EModelState NewValue);
+	void SetModelState(const EModelState NewValue) noexcept;
 };

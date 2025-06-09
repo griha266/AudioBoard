@@ -41,6 +41,7 @@ void UAudioBoardGameInstance::Init()
 		Config->DefaultOpenFolderPath,
 		Config->ProjectFileFilter
 	);
+	InputEventsBus = NewObject<UInputEventsBus>(this);
 	InitAppModel();
 	UE_LOG(LogTemp, Display, TEXT("Audio Board Initialized"));
 }
@@ -51,12 +52,13 @@ void UAudioBoardGameInstance::Shutdown()
 	CancellationToken.Reset();
 	FilePicker.Reset();
 	UE_LOG(LogTemp, Display, TEXT("Audio Board Shutdown"));
+	InputEventsBus = nullptr;
 	AppModel->Unload();
 	AppModel = nullptr;
 	Super::Shutdown();
 }
 
-void UAudioBoardGameInstance::InitAppModel()
+void UAudioBoardGameInstance::InitAppModel() noexcept
 {
 	CancellationToken = MakeShared<FThreadSafeBool>(false);
 	AppModel = NewObject<UAppModel>(this);

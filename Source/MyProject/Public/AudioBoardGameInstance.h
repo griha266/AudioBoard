@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "FilePicker.h"
+#include "InputEventsBus.h"
 #include "Models/AppModel.h"
 #include "Engine/GameInstance.h"
 #include "AudioBoardGameInstance.generated.h"
@@ -25,14 +26,19 @@ public:
 	virtual void Shutdown() override;
 
 	UFUNCTION(BlueprintPure, Category="Audio Board")
-	[[nodiscard]] UAppModel* GetAppModel() const { return AppModel; }
+	[[nodiscard]] UAppModel* GetAppModel() const noexcept { return AppModel; }
+	UFUNCTION(BlueprintPure, Category="Audio Board|Input")
+	[[nodiscard]] UInputEventsBus* GetInputEventsBus() const noexcept { return InputEventsBus; }
 
 private:
 	UPROPERTY()
 	TObjectPtr<UAppModel> AppModel = nullptr;
 
+	UPROPERTY()
+	TObjectPtr<UInputEventsBus> InputEventsBus = nullptr;
+	
 	TSharedPtr<FThreadSafeBool> CancellationToken = nullptr;
 	TSharedPtr<SystemUtils::FFilePicker> FilePicker = nullptr;
 
-	void InitAppModel();
+	void InitAppModel() noexcept;
 };

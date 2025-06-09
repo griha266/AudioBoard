@@ -17,7 +17,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAudioCollectionChangedDelegate, c
  * TODO how to make destructor for UObjects?
  * Should I unbind delegates? Or its handled by gc?
  */
-UCLASS(BlueprintType, NotBlueprintable, Transient)
+UCLASS(BlueprintType, Transient)
 class AUDIOBOARDMODELS_API UProjectModel : public UObject
 {
 	GENERATED_BODY()
@@ -34,6 +34,9 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Data|Getters")
 	[[nodiscard]] const FString& GetFilePath() const;
+
+	UFUNCTION(BlueprintPure, Category = "Data|Getters")
+	[[nodiscard]] const EModelState& GetModelState() const;
 
 	UPROPERTY(BlueprintAssignable, Category = "Data|Events")
 	FOnModelStateChangedDelegate OnModelStateChanged;

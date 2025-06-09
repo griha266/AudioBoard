@@ -78,7 +78,6 @@ TFuture<bool> UAppModel::LoadedAvailableProjects(TSharedPtr<FThreadSafeBool> Can
 	return OperationResult;
 }
 
-// TODO recheck gc
 void UAppModel::Unload()
 {
 	if (!AudioBoardUtils::IsReady(this))
@@ -106,7 +105,6 @@ void UAppModel::Unload()
 	}
 
 	// Should be already unloaded
-	// TODO is it proper way to reset ref?
 	if (IsValid(CurrentActiveProject))
 	{
 		CurrentActiveProject = nullptr;
@@ -238,17 +236,37 @@ void UAppModel::DeleteProject(UProjectModel* Project)
 	}
 }
 
+void UAppModel::ToggleListeningKeyBind()
+{
+	IsListeningKeyBind = !IsListeningKeyBind;
+	OnListeningKeyBindChanged.Broadcast(IsListeningKeyBind);
+}
+
 // GETTERS
 
-// TODO is this safe? Can i change ptr value outside?
 const TArray<UProjectModel*>& UAppModel::GetAvailableProjects() const
 {
 	return AvailableProjects;
 }
 
+UProjectModel* UAppModel::GetCurrentLoadedProject() const
+{
+	if (IsValid(CurrentActiveProject))
+	{
+		return CurrentActiveProject;
+	}
+
+	return nullptr;
+}
+
 bool UAppModel::GetIsInitialized() const
 {
 	return IsInitialized;
+}
+
+bool UAppModel::GetIsListeningKeyBind() const
+{
+	return IsListeningKeyBind;
 }
 
 // PRIVATE
