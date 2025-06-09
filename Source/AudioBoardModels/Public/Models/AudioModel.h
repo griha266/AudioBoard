@@ -66,7 +66,7 @@ private:
 	FString FilePath = TEXT("");
 	FAudioImporter AudioImporter = nullptr;
 	EModelState ModelState = EModelState::Unloaded;
-	FKey KeyBind = FKey(); // EKey::Invalid does not work on arm64
+	FKey KeyBind = FKey();
 	
 	TSharedPtr<FThreadSafeBool> ImportingCT = nullptr;
 	

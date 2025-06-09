@@ -7,9 +7,6 @@
 #include "Engine/DeveloperSettings.h"
 #include "AudioBoardSettings.generated.h"
 
-/**
- * 
- */
 UCLASS(Config=Game, DefaultConfig, BlueprintType)
 class MYPROJECT_API UAudioBoardSettings : public UDeveloperSettings
 {

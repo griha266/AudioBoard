@@ -6,9 +6,6 @@
 #include "GameFramework/PlayerController.h"
 #include "AudioBoardPlayerController.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class MYPROJECT_API AAudioBoardPlayerController : public APlayerController
 {

@@ -16,7 +16,7 @@ UDELEGATE()
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnModelKeyFieldChangedDelegate, const FKey&, NewValue);
 
 
-// TODO it should return to game thread by himself, as others expect this behaviour from him
+// This should return result to game thread by himself, as others expect this behaviour from him
 template<typename T>
 using TFileLoaderFunction = TFunction<TFuture<TTuple<bool, T>>(const FString&, TSharedPtr<FThreadSafeBool>)>;
 

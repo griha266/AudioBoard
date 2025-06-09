@@ -45,7 +45,6 @@ TFuture<bool> UAppModel::LoadedAvailableProjects(TSharedPtr<FThreadSafeBool> Can
 			this->CancellationToken = CancellationToken;
 			SetModelState(EModelState::Loading);
 
-			// TODO replace with save game system
 			// Combine cancellation tokens?
 			AppStateLoader(CancellationToken)
 				.Next([this, Operation = MoveTemp(Operation)](const TTuple<bool,FAppSerializedData>& Result) mutable

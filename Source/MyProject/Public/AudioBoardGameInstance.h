@@ -9,13 +9,6 @@
 #include "Engine/GameInstance.h"
 #include "AudioBoardGameInstance.generated.h"
 
-/**
- * TODO
- * - Add sound import library
- * - Add mock sound import library
- * - Upload to github
- * - Connect to blueprints
- */
 UCLASS()
 class MYPROJECT_API UAudioBoardGameInstance : public UGameInstance
 {

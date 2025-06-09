@@ -5,17 +5,6 @@
 #include "ModelFactories.h"
 #include "AudioBoardSettings.h"
 
-/*
- * TODO list
- * - How to feed mock data from the editor?
- *	- We need some blueprint or whatever
- * - Import runtime audio import plugin
- * - Clean up code
- *  - Recheck your usage of pointers
- *  - Recheck constructors (rule of 5)
- *  - Recheck access modifiers
- */
-
 FAppModelInitArgs MakeRuntimeInitArgs(const UAudioBoardSettings* const InSettings)
 {
 	// TODO implement, 

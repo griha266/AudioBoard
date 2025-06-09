@@ -13,10 +13,6 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAudioCollectionChangedDelegate, const TArray<UAudioModel*>&, AudioModels);
 
-/**
- * TODO how to make destructor for UObjects?
- * Should I unbind delegates? Or its handled by gc?
- */
 UCLASS(BlueprintType, Transient)
 class AUDIOBOARDMODELS_API UProjectModel : public UObject
 {

@@ -16,6 +16,6 @@ public class MyProjectTarget : TargetRules
 
 	private void RegisterModulesCreatedByRider()
 	{
-		ExtraModuleNames.AddRange(new string[] { "AudioBoardModels", "SystemUtils" });
+		ExtraModuleNames.AddRange(["AudioBoardModels", "SystemUtils"]);
 	}
 }

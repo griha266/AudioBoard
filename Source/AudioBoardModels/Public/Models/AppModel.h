@@ -46,7 +46,6 @@ public:
 	void Unload();
 
 	/**
-	 * // TODO how to reference other members in documentation?
 	 * Sets project form existing project models in @link AvailableProjects @endlink
 	 * as current and starts to load it
 	 * @param Project Ptr on existing project from @link AvailableProjects @endlink
