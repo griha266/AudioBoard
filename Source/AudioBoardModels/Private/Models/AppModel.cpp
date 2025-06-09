@@ -268,6 +268,11 @@ bool UAppModel::GetIsListeningKeyBind() const
 	return IsListeningKeyBind;
 }
 
+EModelState UAppModel::GetModelState() const
+{
+	return ModelState;
+}
+
 // PRIVATE
 
 void UAppModel::SetModelState(const EModelState NewModelState)

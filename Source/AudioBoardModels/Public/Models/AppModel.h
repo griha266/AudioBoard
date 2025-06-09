@@ -86,6 +86,9 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Data|Getters")
 	[[nodiscard]] bool GetIsListeningKeyBind() const;
 
+	UFUNCTION(BlueprintPure, Category = "Data|Getters")
+	[[nodiscard]] EModelState GetModelState() const;
+
 	// EVENTS
 	/**
 	 * Called when current loaded project was changed, even if it was set to nullptr
